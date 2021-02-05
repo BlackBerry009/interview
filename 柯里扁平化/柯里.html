@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function add() {
+            var args = [...arguments];
+            var _add = function(){
+                args.push(...arguments)
+                return _add;
+            }
+
+            _add.toString = function(){
+                return args.reduce( (a,b) => a + b);
+            }
+            return _add;
+        }
+
+
+        // console.log(add(1)(2)(3) == 6) ;
+        // console.log(add(1, 2, 3)(4) ==  10)
+        // console.log(add(1)(2)(3)(4)(5) == 15);
+
+
+
+        function curry(fn){
+            let args = [...arguments].slice(1);
+            return function(){
+                let nowArgs = arguments;
+                let totalArgs = [...args,...nowArgs];
+                if(totalArgs.length >= fn.length){
+                    return fn(...totalArgs)
+                } else {
+                    // totalArgs.unshift(fn);
+                    console.log(totalArgs)
+                    return curry(fn,...totalArgs)
+                }
+            }
+        }
+
+        function f(x,y,z){
+            return (x+y)*z;
+        }
+        var g = curry(f,2);
+
+        var y = g(3);
+
+        console.log(y(4))
+    </script>
+</body>
+
+</html>

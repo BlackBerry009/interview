@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button id="btn">+</button>
+    <input type="text" id="inp">
+    <script>
+        
+        inp.addEventListener('input', debounce(function () {
+            console.log('debounce')
+        }, 1000))
+
+        // 延迟一段时间
+        function debounce(callback, delay) {
+            let timer = null;
+            return function () {
+                let args = arguments;
+                let self = this;
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    callback.apply(self, args);
+                }, delay)
+            }
+        }
+
+
+        // 立即执行版
+        function debounce(callback,delay){
+            let timer = null;
+            return function(){
+                let self = this;
+                let args = arguments;
+                timer && clearTimeout(timer);
+                let flag = !timer
+                timer = setTimeout( () => {
+                    timer = null;
+                },delay)
+                if(flag) callback.apply(self,args)
+            }
+        }
+    </script>
+</body>
+
+</html>

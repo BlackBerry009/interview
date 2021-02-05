@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var num = 123478;
+        var reverse = function (x) {
+            var result = 0;
+            while (x != 0) {
+                result = result * 10 + x % 10;
+                x = ~~(x / 10);
+            }
+            return result;
+        };
+        var a = reverse(num)
+        console.log(a)
+    </script>
+</body>
+
+</html>

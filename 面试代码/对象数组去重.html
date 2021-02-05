@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [{
+            name: 'lyg',
+            info: {
+                son: 'aa',
+                age: 0
+            }
+        },{
+            name: 'lyg',
+            info: {
+                son : 'bb',
+                age: 0
+            }
+        },{
+            name: 'lyg',
+            info: {
+                son: 'aa',
+                age: 0
+            }
+        }]
+
+        
+        function unique(obj1,obj2) {
+            var propsArr1 = Object.getOwnPropertyNames(obj1);
+            var propsArr2 = Object.getOwnPropertyNames(obj2);
+        
+            if(propsArr1.length != propsArr2.length) return false;
+            for(var i = 0 ; i < propsArr1.length; i++){
+                var prop1 = obj1[propsArr1[i]];
+                var prop2 = obj2[propsArr1[i]];
+                if(typeof prop1 != 'object'){
+                    if(prop1 != prop2) return false;
+                } else {
+                    return unique(prop1,prop2);
+                }
+            }
+            return true;
+        }
+
+        function demo(arr){
+            for(var i = 0 ; i < arr.length; i++){
+                for(var j = i+ 1; j < arr.length; j++){
+                    if(unique(arr[i],arr[j])){
+                        arr.splice(j,1);
+                        j--
+                    }
+                }
+            }
+            return arr;
+        }
+
+
+       
+
+    </script>
+
+</body>
+
+</html>

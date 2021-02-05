@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        var arr = [1, 2, 4, 1, 7, 8, 3];
+
+        // function maxQ(arr,i) {
+        //     if(i === 0){
+        //         return arr[0];
+        //     }
+        //     if(i === 1){
+        //         return Math.max(arr[0],arr[1]);
+        //     }
+
+        //     var A = maxQ(arr,i - 2) + arr[i]; //choose
+        //     var B = maxQ(arr,i - 1); //no choose
+        //     return Math.max(A,B)
+        // }
+
+
+        function dp(arr){
+            var len = arr.length;
+            var opt = new Array(len);
+            opt[0] = arr[0];
+            opt[1] = Math.max(arr[0],arr[1]);
+
+            for(var i = 2; i < arr.length; i++){
+                var A = opt[i - 2] + arr[i];
+                var B = opt[i - 1];
+                opt[i] = Math.max(A,B);
+            }
+            console.log(opt)
+            return opt[opt.length - 1];
+        }
+    </script>
+</body>
+
+</html>

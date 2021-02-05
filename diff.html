@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        function Node(value){
+            this.value = value;
+            this.left = null;
+            this.right = null;
+        }
+
+        function getTreeByPreAndMid(pre, mid) {
+            if (!pre.length || !mid.length) return null;
+            if (pre.length == 0 || mid.length == 0) return null;
+            var root = new Node(pre[0]);
+            var rootIndex = mid.indexOf(root.value)
+            var mid_left = mid.substring(0, rootIndex)
+            var mid_right = mid.substring(rootIndex + 1)
+            var pre_left = pre.substring(1, rootIndex + 1);
+            var pre_right = pre.substring(rootIndex + 1)
+            root.left = getTreeByPreAndMid(pre_left, mid_left);
+            root.right = getTreeByPreAndMid(pre_right, mid_right)
+            return root;
+        }
+
+        function diff(root1,root2){
+            var arr = [];
+            if(!root1 && !root2) return [];
+            //add
+            if(!root1 && root2){
+                arr.push({
+                    type: '增加',
+                    origin: root1,
+                    new: root2
+                })
+            }
+            //delete
+            else if(root1 && !root2){
+                arr.push({
+                    type: '删除',
+                    origin: root1,
+                    new: root2
+                })
+            }
+            // console.log(root1,root2)
+            else if(root1.value != root2.value){
+                arr.push({
+                    type: '修改',
+                    origin: root1,
+                    new: root2
+                })
+                var res1 = diff(root1.left,root2.left);
+                var res2 = diff(root1.right,root2.right)
+                arr = [...arr,...res1,...res2];
+            }
+            //equal
+            else{
+                var res1 = diff(root1.left,root2.left);
+                var res2 = diff(root1.right,root2.right);
+                arr = [...arr,...res1,...res2];
+            } 
+    
+            return arr;
+        }
+
+        var pre1 = 'abfedx';
+        var mid1 = 'fbeadx';
+
+        var pre2 = 'afdxy';
+        var mid2 = 'faxdy';
+
+        // var pre1 = 'abcd';
+        // var mid1 = 'cbda'
+
+        // var pre2 = 'afkes';
+        // var mid2 = 'kfase';
+
+        var root1 = getTreeByPreAndMid(pre1,mid1);
+        var root2 = getTreeByPreAndMid(pre2,mid2);
+    </script>
+</body>
+
+</html>

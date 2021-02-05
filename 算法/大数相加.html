@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a = '55'
+        var b = '5555'
+
+        function add(a, b) {
+
+            var len = Math.max(a.length, b.length)
+
+            a = a.padStart(len + 1, 0);
+            b = b.padStart(len + 1, 0);
+            var result = [];
+            var flag = 0;
+            for (var i = len; i >= 0; i--) {
+                let sum = ~~a[i] + ~~b[i] + flag;
+                flag = sum >= 10 ? 1 : 0;
+                result.unshift(sum % 10)
+            }
+            console.log(result.join('').replace(/^0/, ''))
+        }
+
+        console.log(add(a, b))
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+        var s = "a";
+        var lengthOfLongestSubstring = function (s) {
+            var str = '';
+            var arr = [];
+            for (var i = 0; i < s.length; i++) {
+                let index = str.indexOf(s[i]);
+                str += s[i];
+                //有重复的
+                if(index !== -1){
+                    arr.push(str.length)
+                    str = str.substring(index+1);
+                }
+
+            }
+            // 处理只有一个字符    
+            arr.push(str.length)
+            
+            if(arr.length === 0) return 0;
+            return Math.max(...arr)
+        };
+
+        var len = lengthOfLongestSubstring(s)
+        console.log(len)
+    </script>
+</body>
+
+</html>

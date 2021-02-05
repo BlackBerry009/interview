@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<button id="btn">+</button>
+
+<body>
+    <script>
+        function throttle(callback, delay) {
+            let prev = Date.now();
+            return function () {
+                let args = arguments;
+                let self = this;
+                let now = Date.now();
+                if (now - prev >= delay) {
+                    callback.apply(self, args)
+                    prev = Date.now();
+                }
+            }
+        }
+
+        let btn = document.getElementById('btn');
+        btn.addEventListener('click', throttle(function () {
+            console.log(1)
+        }, 1000));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <script>
+        function Node(value) {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+        }
+
+        // var node1 = new Node(1)
+        // var node2 = new Node(2)
+        // var node3 = new Node(3)
+        // var node5 = new Node(5)
+        // node1.left = node2;
+        // node1.right = node3;
+        // node2.right = node5;
+
+        var _5 = new Node(5)
+        var _4 = new Node(4)
+        var _8 = new Node(8)
+        var _11 = new Node(11)
+        var _13 = new Node(13)
+        var $4 = new Node(4)
+        var _7 = new Node(7)
+        var _2 = new Node(2)
+        var _1 = new Node(1)
+
+        _5.left = _4;
+        _5.right = _8;
+        _4.left = _11;
+        _11.left = _7;
+        _11.right = _2;
+        _8.left = _13;
+        _8.right = $4;
+        $4.right = _1;
+
+        function print(root) {
+            if (root === null) return null;
+            if (root.left == null && root.right === null) {
+                return [root]
+            }
+            var left = print(root.left);
+            var right = print(root.right);
+            return [root].concat(left, right);
+        }
+
+        var binaryTreePaths = function (root) {
+            if (root === null) return [];
+            if (root.left === null && root.right === null) {
+                return [(root.value).toString()];
+            }
+            var left = binaryTreePaths(root.left),
+                right = binaryTreePaths(root.right);
+            return left.concat(right).map(x => root.value + '->' + x);
+        };
+
+
+        var hasPathSum = function (root, sum) {
+            if (!root) return false;
+            sum -= root.value;
+            if (!root.left && !root.right) return sum == 0;
+            return hasPathSum(root.left, sum) || hasPathSum(root.right, sum)
+        };
+
+        var pathSum = function (root, sum, path = [], result = []) {
+
+            if (!root) return;
+
+            path.push(root.value)
+            if (!root.left && !root.right && root.value == sum) {
+                // result = result.concat(path)
+                result.push(path)
+                return true;
+            }
+
+
+            var left = pathSum(root.left, sum - root.value, path, result);
+            var right = pathSum(root.right, sum - root.value, path, result);
+
+            if (left || right) {
+                console.log(path)
+                console.log(...result)
+            }
+        };
+
+
+        
+    </script>
+</body>
+
+</html>
